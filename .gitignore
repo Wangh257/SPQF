@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store
+outputs/
+results/
+data/*
+!data/README.md
+cal/*
+!cal/README.md

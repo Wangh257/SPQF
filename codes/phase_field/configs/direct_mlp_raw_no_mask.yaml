@@ -1,0 +1,42 @@
+seed: 42
+
+dataset:
+  # 原始多频展开相位；manifest 中不包含 mask 字段。
+  manifest: ../data/calibration_manifest_raw_no_mask.json
+  cache_planes: 24
+  normalization_pixels_per_plane: 500000
+
+features:
+  use_periodic_phase: true
+  use_amplitude: false
+
+model:
+  hidden_dim: 128
+  hidden_layers: 5
+  activation: silu
+  skip_layer: 3
+
+training:
+  # Mac 上自动选择 Apple MPS；不支持 MPS 时自动使用 CPU。
+  device: auto
+  epochs: 100
+  steps_per_epoch: 50
+  batch_size: 16384
+  learning_rate: 0.001
+  min_lr: 0.000001
+  weight_decay: 0.0001
+  loss: smooth_l1
+  smooth_l1_beta: 0.01
+  gradient_clip: 1.0
+  amp: false
+
+  # 每个 epoch 在固定留出的 16、17、19 号原始相位上评估。
+  # 按 test MAE 保存 best.pt，同时每个 epoch 覆盖保存 last.pt。
+  selection_split: test
+  validate_every: 1
+  val_pixels_per_plane: 0
+  inference_chunk_size: 262144
+  early_stopping_patience: 0
+  resume: null
+
+output_dir: ../../../outputs/mlp_raw
