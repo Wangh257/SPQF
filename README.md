@@ -16,8 +16,6 @@ bash tools/infer.sh  # Reconstruct a new object
 
 The scripts are configured by editing the variables near the top of each file. They do not take command-line arguments. Run them from this directory. Python 3.10 or newer is recommended.
 
-The dataset and pretrained models are not included. Set the paths in the scripts to your own data before running them.
-
 ## Project structure
 
 ```text
